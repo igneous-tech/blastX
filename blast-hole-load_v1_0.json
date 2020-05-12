@@ -25,11 +25,11 @@
               "properties": {
                 "topDepth": {
                   "type": "number",
-                  "description": "Distance from the top of the hole to the top of the layer. Measured in m in Metric system or in ft in USCS."
+                  "description": "Distance from the top of the hole to the top of the layer. Measured in m."
                 },
                 "height": {
                   "type": "number",
-                  "description": "Measured in m in Metric system or in ft in USCS"
+                  "description": "Measured in m"
                 },
                 "layerType": {
                   "type": "string",

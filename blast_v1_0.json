@@ -18,11 +18,6 @@
           "description": "Application in which this blast originated",
           "type": "string"
         },
-        "unitSystem": {
-          "description": "System of measurement",
-          "type": "string",
-          "enum": [ "uscs", "metric" ]
-        },
         "geodeticStandard": {
           "description": "Standard used to define geographical coordinate on the Earth",
           "type": "string",
@@ -37,7 +32,7 @@
           "description": "Arbitrary data that can be provided by the source application but is not part of the current spec"
         }
       },
-      "required": [ "dataSource", "unitSystem", "geodeticStandard", "createdDateTime" ]
+      "required": [ "dataSource", "geodeticStandard", "createdDateTime" ]
     },
     "blastInfo": {
       "description": "General information about the blast",

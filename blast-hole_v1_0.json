@@ -15,15 +15,15 @@
     },
     "depth": {
       "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS. NOTE: hole depth may be implicitly described by the depthSamples array if present."
+      "description": "Measured in m. NOTE: hole depth is implicitly described by the depthSamples array if present."
     },
     "subdrill": {
       "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
+      "description": "Measured in m"
     },
     "diameter": {
       "type": "number",
-      "description": "Measured in mm in Metric system or in inches in USCS"
+      "description": "Measured in mm"
     },
     "drillingAngle": {
       "type": "number",
@@ -41,11 +41,11 @@
         "properties": {
           "eastingOffset": {
             "type": "number",
-            "description": "The offset in the easting direction as measured from the collar. Measured in m for Metric ft for USCS."
+            "description": "The offset in the easting direction as measured from the collar. Measured in m."
           },
           "northingOffset": {
             "type": "number",
-            "description": "The offset in the northing direction as measured from the collar. Measured in m for Metric ft for USCS."
+            "description": "The offset in the northing direction as measured from the collar. Measured in m."
           },
           "depth": {
             "type": "number",
@@ -57,11 +57,11 @@
     },
     "centerLeftOffset": {
       "type": "number",
-      "description": "Left offset of the center of the hole relative to the canvas. Measured in m in Metric system or in ft in USCS"
+      "description": "Left offset of the center of the hole relative to the canvas. Measured in m."
     },
     "centerTopOffset": {
       "type": "number",
-      "description": "Top offset of the center of the hole relative to the canvas. Measured in m in Metric system or in ft in USCS"
+      "description": "Top offset of the center of the hole relative to the canvas. Measured in m."
     },
     "patternId": {
       "type": "string"

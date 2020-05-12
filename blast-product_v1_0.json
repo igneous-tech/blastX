@@ -31,19 +31,19 @@
     },
     "detonationVelocity": {
       "type": "number",
-      "description": "Measured in m/s in Metric system or in ft/s in USCS"
+      "description": "Measured in m/s"
     },
     "length": {
       "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
+      "description": "Measured in m"
     },
     "diameter": {
       "type": "number",
-      "description": "Measured in mm in Metric system or in inches in USCS"
+      "description": "Measured in mm"
     },
     "weight": {
       "type": "number",
-      "description": "Measured in kg in Metric system or in lb in USCS"
+      "description": "Measured in kg"
     },
     "inHoleDelayTime": {
       "description": "Delay time in milliseconds",

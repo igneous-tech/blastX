@@ -25,9 +25,8 @@
     },
     "depth": {
       "type": "number",
-      "description": "Distance from the top of the hole to the detonator. Measured in m in Metric system or in ft in USCS."
-    },
-    "location": { "$ref": "https://www.austinpowder.com/specs/schemas/geographical-location/v1.0" }
+      "description": "Distance from the top of the hole to the detonator. Measured in m."
+    }
   },
   "required": [ "blastHoleId", "detNumber" ]
 }

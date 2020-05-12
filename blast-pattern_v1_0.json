@@ -12,11 +12,11 @@
     },
     "burden": {
       "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
+      "description": "Measured in m."
     },
     "spacing": {
       "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
+      "description": "Measured in m."
     },
     "numberOfHoles": {
       "type": "integer",
@@ -34,11 +34,11 @@
     },
     "leftOffset": {
       "type": "number",
-      "description": "Left offset of the top left corner relative to the canvas. Measured in m in Metric system or in ft in USCS"
+      "description": "Left offset of the top left corner relative to the canvas. Measured in m."
     },
     "topOffset": {
       "type": "number",
-      "description": "Top offset of the top left corner relative to the canvas. Measured in m in Metric system or in ft in USCS"
+      "description": "Top offset of the top left corner relative to the canvas. Measured in m."
     }
   },
   "required": [ "numberOfHoles" ]
