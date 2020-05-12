@@ -1,0 +1,45 @@
+﻿{
+  "$id": "https://www.austinpowder.com/specs/schemas/blast-pattern/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blast Pattern",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "burden": {
+      "type": "number",
+      "description": "Measured in m in Metric system or in ft in USCS"
+    },
+    "spacing": {
+      "type": "number",
+      "description": "Measured in m in Metric system or in ft in USCS"
+    },
+    "numberOfHoles": {
+      "type": "integer",
+      "exclusiveMinimum": 0
+    },
+    "numberOfRows": {
+      "type": "integer"
+    },
+    "numberOfColumns": {
+      "type": "integer"
+    },
+    "rotationAngle": {
+      "type": "number",
+      "description": "Describes geometrical rotation of the pattern relative to its top left corner. Positive angles are clockwise. Measured in degrees."
+    },
+    "leftOffset": {
+      "type": "number",
+      "description": "Left offset of the top left corner relative to the canvas. Measured in m in Metric system or in ft in USCS"
+    },
+    "topOffset": {
+      "type": "number",
+      "description": "Top offset of the top left corner relative to the canvas. Measured in m in Metric system or in ft in USCS"
+    }
+  },
+  "required": [ "numberOfHoles" ]
+}

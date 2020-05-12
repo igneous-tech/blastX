@@ -1,0 +1,61 @@
+﻿{
+  "$id": "https://www.austinpowder.com/specs/schemas/blast-product/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blast Product",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "productCode": {
+      "type": "string"
+    },
+    "productType": {
+      "type": "string",
+      "enum": [ "bulk", "stick", "booster", "detonator", "detonating cord" ]
+    },
+    "detonatorType": {
+      "type": "string",
+      "enum": [ "electric", "electronic", "other" ]
+    },
+    "delayType": {
+      "type": "string",
+      "enum": [ "in-hole", "surface", "dual" ]
+    },
+    "density": {
+      "type": "number",
+      "description": "Measured in g/cm3"
+    },
+    "detonationVelocity": {
+      "type": "number",
+      "description": "Measured in m/s in Metric system or in ft/s in USCS"
+    },
+    "length": {
+      "type": "number",
+      "description": "Measured in m in Metric system or in ft in USCS"
+    },
+    "diameter": {
+      "type": "number",
+      "description": "Measured in mm in Metric system or in inches in USCS"
+    },
+    "weight": {
+      "type": "number",
+      "description": "Measured in kg in Metric system or in lb in USCS"
+    },
+    "inHoleDelayTime": {
+      "description": "Delay time in milliseconds",
+      "type": "number"
+    },
+    "surfaceDelayTime": {
+      "description": "Delay time in milliseconds",
+      "type": "number"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [ "displayName", "productType" ]
+}

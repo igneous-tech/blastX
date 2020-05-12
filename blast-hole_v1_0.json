@@ -1,0 +1,33 @@
+﻿{
+  "$id": "https://www.austinpowder.com/specs/schemas/blast-hole/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blast Hole",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "holeNumber": {
+      "type": "integer"
+    },
+    "centerLeftOffset": {
+      "type": "number",
+      "description": "Left offset of the center of the hole relative to the canvas. Measured in m in Metric system or in ft in USCS"
+    },
+    "centerTopOffset": {
+      "type": "number",
+      "description": "Top offset of the center of the hole relative to the canvas. Measured in m in Metric system or in ft in USCS"
+    },
+    "patternId": {
+      "type": "string"
+    },
+    "holeLoadId": {
+      "type": "string"
+    },
+    "location": { "$ref": "https://www.austinpowder.com/specs/schemas/geographical-location/v1.0" }
+  },
+  "required": [ "centerLeftOffset", "centerTopOffset" ]
+}

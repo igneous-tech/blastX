@@ -1,0 +1,92 @@
+﻿{
+  "$id": "https://www.austinpowder.com/specs/schemas/blast/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blast",
+  "description": "A blast performed using explosives to break rock for excavation",
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "dataSource": {
+          "description": "Application in which this blast originated",
+          "type": "string"
+        },
+        "unitSystem": {
+          "description": "System of measurement",
+          "type": "string",
+          "enum": [ "uscs", "metric" ]
+        },
+        "geodeticStandard": {
+          "description": "Standard used to define geographical coordinate on the Earth",
+          "type": "string",
+          "enum": [ "WGS1984" ]
+        },
+        "createdDateTime": {
+          "description": "Date and time (in ISO 8601) format of when this document was generated",
+          "type": "string"
+        },
+        "extensionData": {
+          "description": "Arbitrary data that can be provided by the source application but is not part of the current spec"
+        }
+      },
+      "required": [ "dataSource", "unitSystem", "geodeticStandard", "createdDateTime" ]
+    },
+    "blastInfo": {
+      "description": "General information about the blast",
+      "type": "object",
+      "properties": {
+        "blastDateTime": {
+          "description": "Date and time of the blast (in ISO 8601 format)",
+          "type": "string"
+        },
+        "customerName": {
+          "type": "string"
+        },
+        "initiationType": {
+          "type": "string",
+          "enum": [ "non-electric", "electric", "electronic" ]
+        },
+        "bearing": {
+          "type": "number",
+          "description": "Measured in degrees. North is 0°, East is 90°, South is 180°, West is 270°."
+        },
+        "diagramPixelScale": {
+          "description": "Number of diagram pixels in one unit of length",
+          "type": "number"
+        }
+      }
+    },
+    "holeLoads": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/blast-hole-load/v1.0" }
+    },
+    "patterns": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/blast-pattern/v1.0" }
+    },
+    "holes": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/blast-hole/v1.0" }
+    },
+    "products": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/blast-product/v1.0" }
+    },
+    "holeTies": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/blast-hole-tie/v1.0" }
+    },
+    "electronicDetonators": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/electronic-detonator/v1.0" }
+    }
+  },
+  "required": [ "metadata" ]
+}
