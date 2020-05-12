@@ -13,6 +13,48 @@
     "holeNumber": {
       "type": "integer"
     },
+    "depth": {
+      "type": "number",
+      "description": "Measured in m in Metric system or in ft in USCS. NOTE: hole depth may be implicitly described by the depthSamples array if present."
+    },
+    "subdrill": {
+      "type": "number",
+      "description": "Measured in m in Metric system or in ft in USCS"
+    },
+    "diameter": {
+      "type": "number",
+      "description": "Measured in mm in Metric system or in inches in USCS"
+    },
+    "drillingAngle": {
+      "type": "number",
+      "description": "Measured in degrees"
+    },
+    "drillingBearing": {
+      "type": "number",
+      "description": "Applicable to angled holes only. Measured in degrees. North is 0°, East is 90°, South is 180°, West is 270°."
+    },
+    "depthSamples": {
+      "type":"array",
+      "description": "This optional property will contain an array of offset sample data to describe the borehole deviation if available.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "eastingOffset": {
+            "type": "number",
+            "description": "The offset in the easting direction as measured from the collar. Measured in m for Metric ft for USCS."
+          },
+          "northingOffset": {
+            "type": "number",
+            "description": "The offset in the northing direction as measured from the collar. Measured in m for Metric ft for USCS."
+          },
+          "depth": {
+            "type": "number",
+            "description": "The depth of the above northing/easting offset values."
+          }
+        }
+      },
+      "required": ["eastingOffset", "northingOffset", "depth"]
+    },
     "centerLeftOffset": {
       "type": "number",
       "description": "Left offset of the center of the hole relative to the canvas. Measured in m in Metric system or in ft in USCS"
@@ -29,5 +71,5 @@
     },
     "location": { "$ref": "https://www.austinpowder.com/specs/schemas/geographical-location/v1.0" }
   },
-  "required": [ "centerLeftOffset", "centerTopOffset" ]
+  "required": [ "id" ]
 }

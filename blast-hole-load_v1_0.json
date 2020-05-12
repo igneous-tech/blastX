@@ -10,26 +10,6 @@
     "displayName": {
       "type": "string"
     },
-    "depth": {
-      "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
-    },
-    "subdrill": {
-      "type": "number",
-      "description": "Measured in m in Metric system or in ft in USCS"
-    },
-    "diameter": {
-      "type": "number",
-      "description": "Measured in mm in Metric system or in inches in USCS"
-    },
-    "drillingAngle": {
-      "type": "number",
-      "description": "Measured in degrees"
-    },
-    "drillingBearing": {
-      "type": "number",
-      "description": "Applicable to angled holes only. Measured in degrees. North is 0°, East is 90°, South is 180°, West is 270°."
-    },
     "decks": {
       "type": "array",
       "items": {
@@ -43,9 +23,6 @@
             "items": {
               "type": "object",
               "properties": {
-                "id": {
-                  "type": "string"
-                },
                 "topDepth": {
                   "type": "number",
                   "description": "Distance from the top of the hole to the top of the layer. Measured in m in Metric system or in ft in USCS."
@@ -59,7 +36,8 @@
                   "enum": [ "product", "inert", "air", "other" ]
                 },
                 "stemmingDescription": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "A description of the stemming material used"
                 },
                 "blastProductId": {
                   "type": "string"

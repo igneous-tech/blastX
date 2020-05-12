@@ -30,7 +30,8 @@
         },
         "createdDateTime": {
           "description": "Date and time (in ISO 8601) format of when this document was generated",
-          "type": "string"
+          "type": "string",
+          "format": "date-time"
         },
         "extensionData": {
           "description": "Arbitrary data that can be provided by the source application but is not part of the current spec"
@@ -44,7 +45,8 @@
       "properties": {
         "blastDateTime": {
           "description": "Date and time of the blast (in ISO 8601 format)",
-          "type": "string"
+          "type": "string",
+          "format": "date-time"
         },
         "customerName": {
           "type": "string"
