@@ -1,0 +1,41 @@
+{
+    "$id": "https://www.austinpowder.com/specs/schemas/mesh/v1.0",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Mesh",
+    "description": "A triangulated mesh surface",
+    "type": "object",
+    "properties": {
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "points": {
+            "description": "The points that define the triangles for this mesh",
+            "type": "array",
+            "items": { "$ref": "https://www.austinpowder.com/specs/schemas/linear-coordinate/v1.0" }
+          },
+          "indices": {
+            "description": "The indices that define the triangles for this mesh",
+            "type": "array",
+            "items": { "type": "integer" }
+          },
+          "textureCoordinates": {
+            "description": "The per-vertex coordinates that define how to map the texture",
+            "type": "array",
+            "items": { "$ref": "https://www.austinpowder.com/specs/schemas/texture-coordinate/v1.0" }
+          },
+          "texture": {
+            "description": "The indices that define the triangles for this mesh",
+            "type": "string"
+          }
+        },
+        "required": [ "points", "indices" ]
+      }
+    },
+    "required": [ "metadata" ]
+  }

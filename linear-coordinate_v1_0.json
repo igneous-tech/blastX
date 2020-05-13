@@ -1,0 +1,22 @@
+{
+    "$id": "https://www.austinpowder.com/specs/schemas/linear-coordinate/v1.0",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Coordinate",
+    "description": "A linear coordinate, generally within the context of a geographical projection",
+    "type": "object",
+    "properties": {
+      "E": {
+        "type": "number",
+        "description": "Easting value"
+      },
+      "N": {
+        "type": "number",
+        "description": "Northing value"
+      },
+      "L": {
+        "type": "number",
+        "description": "Elevation value"
+      }
+    },
+    "required": [ "E", "N" ]
+  }

@@ -83,6 +83,10 @@
     "electronicDetonators": {
       "type": "array",
       "items": { "$ref": "https://www.austinpowder.com/specs/schemas/electronic-detonator/v1.0" }
+    },
+    "meshes": {
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/mesh/v1.0" }
     }
   },
   "required": [ "metadata" ]
