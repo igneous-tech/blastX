@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using igneous.blastx.v1;
@@ -39,6 +40,10 @@ namespace igneous.blastx.tests
 
         // Super retarded copy for blastX serializable objects
         static T _copy<T>(T obj) => JsonConvert.DeserializeObject<T>(Blast.ToJson(obj));
+
+        bool _isListType(Type type) =>
+            type.IsGenericType &&
+            type == typeof(List<>).MakeGenericType(type.GenericTypeArguments);
 
         [TestMethod]
         public void EqualityTests()
@@ -87,16 +92,16 @@ namespace igneous.blastx.tests
             {
                 var testsRun = false;
                 foreach (var propInfo in obj.GetType().GetProperties().Where(_hasJsonProperties))
-                {
-                    var objCopy = _copy(obj);
-                    var value = propInfo.PropertyType.IsValueType ?
-                        Activator.CreateInstance(propInfo.PropertyType) :
-                        null;
-                    propInfo.SetValue(objCopy, value);
-                    Assert.AreNotEqual(obj, objCopy);
-
-                    testsRun = true;
-                }
+                    if (_isListType(propInfo.PropertyType) == false)
+                    {
+                        var objCopy = _copy(obj);
+                        var value = propInfo.PropertyType.IsValueType ?
+                            Activator.CreateInstance(propInfo.PropertyType) :
+                            null;
+                        propInfo.SetValue(objCopy, value);
+                        Assert.AreNotEqual(obj, objCopy);
+                        testsRun = true;
+                    }
 
                 return testsRun;
             }
