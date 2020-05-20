@@ -33,11 +33,11 @@ namespace igneous.blastx.v1
 
         [JsonProperty("detonatingCordConnectionType", Required = Required.Default)]
         [JsonConverter(typeof(StringEnumConverter))]
-        public DetonatingCordConnectionType DetonatingCordConnectionType { get; set; }
+        public DetonatingCordConnectionType? DetonatingCordConnectionType { get; set; }
 
         [JsonProperty("dualDelayConnectionType", Required = Required.Default)]
         [JsonConverter(typeof(StringEnumConverter))]
-        public DualDelayConnectionType DualDelayConnectionType { get; set; }
+        public DualDelayConnectionType? DualDelayConnectionType { get; set; }
 
         public override bool Equals(object obj) =>
             obj is Layer layer &&

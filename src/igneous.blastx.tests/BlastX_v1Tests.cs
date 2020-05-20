@@ -70,6 +70,7 @@ namespace igneous.blastx.tests
                 CenterTopOffset = 2,
                 HoleLoadId = "load1",
                 PatternId = "patId1",
+                Location = new GeographicalLocation(),
             };
             Assert.AreEqual(hole, hole);
             Assert.AreEqual(hole, _copy(hole));

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace igneous.blastx.v1
 {
@@ -53,6 +52,9 @@ namespace igneous.blastx.v1
         [JsonProperty("holeLoadId", Required = Required.Default)]
         public string HoleLoadId { get; set; }
 
+        [JsonProperty("location", Required = Required.Default)]
+        public GeographicalLocation Location{ get; set; }
+
         public override bool Equals(object obj) =>
             obj is BlastHole hole &&
             Id == hole.Id &&
@@ -67,7 +69,8 @@ namespace igneous.blastx.v1
             CenterLeftOffset == hole.CenterLeftOffset &&
             CenterTopOffset == hole.CenterTopOffset &&
             PatternId == hole.PatternId &&
-            HoleLoadId == hole.HoleLoadId;
+            HoleLoadId == hole.HoleLoadId &&
+            Equals(Location, hole.Location);
 
         public override int GetHashCode()
         {

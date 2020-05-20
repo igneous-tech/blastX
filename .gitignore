@@ -3,3 +3,4 @@ src/packages/
 src/*/bin/
 src/*/obj/
 .vs/
+*.csproj.user
