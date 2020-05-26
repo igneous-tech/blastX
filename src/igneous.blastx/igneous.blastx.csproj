@@ -45,6 +45,7 @@
     <Compile Include="v1\BlastInfo.cs" />
     <Compile Include="v1\BlastPattern.cs" />
     <Compile Include="v1\Compare.cs" />
+    <Compile Include="v1\Cost.cs" />
     <Compile Include="v1\Deck.cs" />
     <Compile Include="v1\DelayType.cs" />
     <Compile Include="v1\DepthSample.cs" />

@@ -26,7 +26,12 @@
     "depth": {
       "type": "number",
       "description": "Distance from the top of the hole to the detonator. Measured in m."
-    }
+    },
+    "extensionData": {
+      "type": "array",
+      "description": "An arbitrary array of data not formally defined by the spec"
+    },
+    "cost": { "$ref": "https://www.austinpowder.com/specs/schemas/cost/v1.0" }
   },
   "required": [ "blastHoleId", "detNumber" ]
 }

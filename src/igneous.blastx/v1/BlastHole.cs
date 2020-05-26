@@ -53,7 +53,10 @@ namespace igneous.blastx.v1
         public string HoleLoadId { get; set; }
 
         [JsonProperty("location", Required = Required.Default)]
-        public GeographicalLocation Location{ get; set; }
+        public GeographicalLocation Location { get; set; }
+
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; } = new List<object>();
 
         public override bool Equals(object obj) =>
             obj is BlastHole hole &&
@@ -70,7 +73,8 @@ namespace igneous.blastx.v1
             CenterTopOffset == hole.CenterTopOffset &&
             PatternId == hole.PatternId &&
             HoleLoadId == hole.HoleLoadId &&
-            Equals(Location, hole.Location);
+            Equals(Location, hole.Location) &&
+            ExtensionData.IsEquivalentTo(hole.ExtensionData);
 
         public override int GetHashCode()
         {
@@ -88,6 +92,7 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + CenterTopOffset.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PatternId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(HoleLoadId);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
             return hashCode;
         }
     }

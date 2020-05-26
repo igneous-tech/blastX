@@ -29,7 +29,8 @@
           "format": "date-time"
         },
         "extensionData": {
-          "description": "Arbitrary data that can be provided by the source application but is not part of the current spec"
+          "type": "array",
+          "description": "An arbitrary array of data not formally defined by the spec"
         }
       },
       "required": [ "dataSource", "geodeticStandard", "createdDateTime" ]

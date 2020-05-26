@@ -39,6 +39,10 @@
     "topOffset": {
       "type": "number",
       "description": "Top offset of the top left corner relative to the canvas. Measured in m."
+    },
+    "extensionData": {
+      "type": "array",
+      "description": "An arbitrary array of data not formally defined by the spec"
     }
   },
   "required": [ "numberOfHoles" ]

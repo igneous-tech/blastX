@@ -14,11 +14,19 @@ namespace igneous.blastx.v1
         [JsonProperty("blastProductId", Required = Required.Always)]
         public string BlastProductId { get; set; } = string.Empty;
 
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; } = new List<object>();
+
+        [JsonProperty("cost", Required = Required.Default)]
+        public Cost Cost { get; set; }
+
         public override bool Equals(object obj) =>
             obj is BlastHoleTie tie &&
             StartHoleId == tie.StartHoleId &&
             EndHoleId == tie.EndHoleId &&
-            BlastProductId == tie.BlastProductId;
+            BlastProductId == tie.BlastProductId &&
+            ExtensionData.IsEquivalentTo(tie.ExtensionData) &&
+            Equals(Cost, tie.Cost);
 
         public override int GetHashCode()
         {
@@ -26,6 +34,8 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(StartHoleId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EndHoleId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(BlastProductId);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }
     }

@@ -40,6 +40,9 @@ namespace igneous.blastx.v1
         [JsonProperty("topOffset", Required = Required.Default)]
         public double? TopOffset { get; set; }
 
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; } = new List<object>();
+
         public override bool Equals(object obj) =>
             obj is BlastPattern pattern &&
             Id == pattern.Id &&
@@ -51,7 +54,8 @@ namespace igneous.blastx.v1
             NumberOfColumns == pattern.NumberOfColumns &&
             RotationAngle == pattern.RotationAngle &&
             LeftOffset == pattern.LeftOffset &&
-            TopOffset == pattern.TopOffset;
+            TopOffset == pattern.TopOffset &&
+            ExtensionData.IsEquivalentTo(pattern.ExtensionData);
 
         public override int GetHashCode()
         {
@@ -66,6 +70,7 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + RotationAngle.GetHashCode();
             hashCode = hashCode * -1521134295 + LeftOffset.GetHashCode();
             hashCode = hashCode * -1521134295 + TopOffset.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
             return hashCode;
         }
     }

@@ -58,6 +58,12 @@ namespace igneous.blastx.v1
         [JsonProperty("notes", Required = Required.Default)]
         public string Notes { get; set; }
 
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; } = new List<object>();
+
+        [JsonProperty("cost", Required = Required.Default)]
+        public Cost Cost { get; set; }
+
         public override bool Equals(object obj) =>
             obj is Product product &&
             ProductCode == product.ProductCode &&
@@ -70,7 +76,10 @@ namespace igneous.blastx.v1
             Diameter == product.Diameter &&
             Weight == product.Weight &&
             InHoleDelayTime == product.InHoleDelayTime &&
-            SurfaceDelayTime == product.SurfaceDelayTime;
+            SurfaceDelayTime == product.SurfaceDelayTime &&
+            Notes == product.Notes &&
+            ExtensionData.IsEquivalentTo(product.ExtensionData) &&
+            Equals(Cost, product.Cost);
 
         public override int GetHashCode()
         {
@@ -86,6 +95,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + Weight.GetHashCode();
             hashCode = hashCode * -1521134295 + InHoleDelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + SurfaceDelayTime.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Notes);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }
     }

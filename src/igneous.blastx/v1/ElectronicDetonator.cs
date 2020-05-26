@@ -28,6 +28,12 @@ namespace igneous.blastx.v1
         [JsonProperty("depth", Required = Required.Default)]
         public double? Depth { get; set; }
 
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; } = new List<object>();
+
+        [JsonProperty("cost", Required = Required.Default)]
+        public Cost Cost { get; set; }
+
         public override bool Equals(object obj) =>
             obj is ElectronicDetonator detonator &&
             BlastHoleId == detonator.BlastHoleId &&
@@ -36,11 +42,13 @@ namespace igneous.blastx.v1
             DeckNumber == detonator.DeckNumber &&
             DelayTime == detonator.DelayTime &&
             SerialNumber == detonator.SerialNumber &&
-            Depth == detonator.Depth;
+            Depth == detonator.Depth &&
+            ExtensionData.IsEquivalentTo(detonator.ExtensionData) &&
+            Equals(Cost, detonator.Cost);
 
         public override int GetHashCode()
         {
-            var hashCode = -437896266;
+            int hashCode = 641344168;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(BlastHoleId);
             hashCode = hashCode * -1521134295 + DetNumber.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Branch);
@@ -48,6 +56,8 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + DelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SerialNumber);
             hashCode = hashCode * -1521134295 + Depth.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }
     }

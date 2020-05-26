@@ -1,16 +1,16 @@
 {
-    "$id": "https://www.austinpowder.com/specs/schemas/texture-coordinate/v1.0",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Coordinate",
-    "description": "A texture coordinate",
-    "type": "object",
-    "properties": {
-      "U": {
-        "type": "number"
-      },
-      "V": {
-        "type": "number"
-      }
+  "$id": "https://www.austinpowder.com/specs/schemas/texture-coordinate/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Coordinate",
+  "description": "A texture coordinate",
+  "type": "object",
+  "properties": {
+    "U": {
+      "type": "number"
     },
-    "required": [ "U", "V" ]
-  }
+    "V": {
+      "type": "number"
+    }
+  },
+  "required": [ "U", "V" ]
+}

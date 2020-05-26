@@ -1,41 +1,36 @@
 {
-    "$id": "https://www.austinpowder.com/specs/schemas/mesh/v1.0",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "title": "Mesh",
-    "description": "A triangulated mesh surface",
-    "type": "object",
-    "properties": {
-      "metadata": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "displayName": {
-            "type": "string"
-          },
-          "points": {
-            "description": "The points that define the triangles for this mesh",
-            "type": "array",
-            "items": { "$ref": "https://www.austinpowder.com/specs/schemas/linear-coordinate/v1.0" }
-          },
-          "indices": {
-            "description": "The indices that define the triangles for this mesh",
-            "type": "array",
-            "items": { "type": "integer" }
-          },
-          "textureCoordinates": {
-            "description": "The per-vertex coordinates that define how to map the texture",
-            "type": "array",
-            "items": { "$ref": "https://www.austinpowder.com/specs/schemas/texture-coordinate/v1.0" }
-          },
-          "texture": {
-            "description": "The indices that define the triangles for this mesh",
-            "type": "string"
-          }
-        },
-        "required": [ "points", "indices" ]
-      }
+  "$id": "https://www.austinpowder.com/specs/schemas/mesh/v1.0",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mesh",
+  "description": "A triangulated mesh surface",
+  "type": "object",
+  "properties": {
+    "displayName": {
+      "type": "string"
     },
-    "required": [ "metadata" ]
-  }
+    "points": {
+      "description": "The points that define the triangles for this mesh",
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/linear-coordinate/v1.0" }
+    },
+    "indices": {
+      "description": "The (non-stripped) indices that define the triangles for this mesh. NOTE: winding order is clockwise",
+      "type": "array",
+      "items": { "type": "integer" }
+    },
+    "textureCoordinates": {
+      "description": "The per-vertex coordinates that define how to map the texture",
+      "type": "array",
+      "items": { "$ref": "https://www.austinpowder.com/specs/schemas/texture-coordinate/v1.0" }
+    },
+    "texture": {
+      "description": "The filepath of any texture image to render on the mesh",
+      "type": "string"
+    },
+    "extensionData": {
+      "type": "array",
+      "description": "An arbitrary array of data not formally defined by the spec"
+    }
+  },
+  "required": [ "points", "indices" ]
+}
