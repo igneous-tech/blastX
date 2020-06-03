@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class BlastHoleTie
+    public sealed class BlastHoleTie : IHasExtensionData
     {
         [JsonProperty("startHoleId", Required = Required.Default)]
         public string StartHoleId { get; set; } = string.Empty;
@@ -15,7 +15,7 @@ namespace igneous.blastx.v1
         public string BlastProductId { get; set; } = string.Empty;
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         [JsonProperty("cost", Required = Required.Default)]
         public Cost Cost { get; set; }

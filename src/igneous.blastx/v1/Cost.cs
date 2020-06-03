@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class Cost
+    public sealed class Cost : IHasExtensionData
     {
         [JsonProperty("amount", Required = Required.Always)]
         public double Amount { get; set; }
@@ -29,7 +29,9 @@ namespace igneous.blastx.v1
             int hashCode = 1798114747;
             hashCode = hashCode * -1521134295 + Amount.GetHashCode();
             hashCode = hashCode * -1521134295 + Currency.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Notes);
             return hashCode;
         }

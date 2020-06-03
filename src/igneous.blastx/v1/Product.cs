@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class Product
+    public sealed class Product : IHasExtensionData
     {
         [JsonProperty("id", Required = Required.Default)]
         public string Id { get; set; }
@@ -59,13 +59,14 @@ namespace igneous.blastx.v1
         public string Notes { get; set; }
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         [JsonProperty("cost", Required = Required.Default)]
         public Cost Cost { get; set; }
 
         public override bool Equals(object obj) =>
             obj is Product product &&
+            Equals(Id, product.Id) &&
             ProductCode == product.ProductCode &&
             ProductType == product.ProductType &&
             DetonatorType == product.DetonatorType &&
@@ -84,6 +85,7 @@ namespace igneous.blastx.v1
         public override int GetHashCode()
         {
             var hashCode = 770216122;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProductCode);
             hashCode = hashCode * -1521134295 + ProductType.GetHashCode();
             hashCode = hashCode * -1521134295 + DetonatorType.GetHashCode();
@@ -96,7 +98,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + InHoleDelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + SurfaceDelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Notes);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }

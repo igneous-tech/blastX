@@ -55,6 +55,7 @@
     <Compile Include="v1\ElectronicDetonator.cs" />
     <Compile Include="v1\GeodeticStandard.cs" />
     <Compile Include="v1\GeographicalLocation.cs" />
+    <Compile Include="v1\IHasExtensionData.cs" />
     <Compile Include="v1\InitiationType.cs" />
     <Compile Include="v1\Layer.cs" />
     <Compile Include="v1\LayerType.cs" />

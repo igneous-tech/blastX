@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class ElectronicDetonator
+    public sealed class ElectronicDetonator : IHasExtensionData
     {
         [JsonProperty("blastHoleId", Required = Required.Always)]
         public string BlastHoleId { get; set; } = string.Empty;
@@ -29,7 +29,7 @@ namespace igneous.blastx.v1
         public double? Depth { get; set; }
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         [JsonProperty("cost", Required = Required.Default)]
         public Cost Cost { get; set; }
@@ -56,7 +56,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + DelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SerialNumber);
             hashCode = hashCode * -1521134295 + Depth.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }

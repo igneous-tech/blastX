@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class BlastPattern
+    public sealed class BlastPattern : IHasExtensionData
     {
         [JsonProperty("id", Required = Required.Default)]
         public string Id { get; set; }
@@ -41,7 +41,7 @@ namespace igneous.blastx.v1
         public double? TopOffset { get; set; }
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         public override bool Equals(object obj) =>
             obj is BlastPattern pattern &&
@@ -70,7 +70,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + RotationAngle.GetHashCode();
             hashCode = hashCode * -1521134295 + LeftOffset.GetHashCode();
             hashCode = hashCode * -1521134295 + TopOffset.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             return hashCode;
         }
     }

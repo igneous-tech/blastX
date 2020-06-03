@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class BlastHoleLoad
+    public sealed class BlastHoleLoad : IHasExtensionData
     {
         [JsonProperty("id", Required = Required.Default)]
         public string Id { get; set; }
@@ -15,7 +15,7 @@ namespace igneous.blastx.v1
         public List<Deck> Decks { get; set; } = new List<Deck>();
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         public override bool Equals(object obj) =>
             obj is BlastHoleLoad load &&
@@ -30,7 +30,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Id);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(DisplayName);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Deck>>.Default.GetHashCode(Decks);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             return hashCode;
         }
     }

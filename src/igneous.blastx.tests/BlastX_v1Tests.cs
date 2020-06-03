@@ -107,5 +107,24 @@ namespace igneous.blastx.tests
                 return testsRun;
             }
         }
+
+        [TestMethod]
+        public void GetExtensionData()
+        {
+            var hole = new BlastHole();
+            Assert.IsNull(hole.ExtensionData);
+
+            var data1 = new object();
+            hole.GetExtensionData().Add(data1);
+            Assert.IsNotNull(hole.ExtensionData);
+            Assert.AreEqual(hole.ExtensionData.Count, 1);
+            Assert.AreEqual(hole.ExtensionData[0], data1);
+
+            var data2 = new object();
+            hole.GetExtensionData().Add(data2);
+            Assert.AreEqual(hole.ExtensionData.Count, 2);
+            Assert.AreEqual(hole.ExtensionData[0], data1);
+            Assert.AreEqual(hole.ExtensionData[1], data2);
+        }
     }
 }

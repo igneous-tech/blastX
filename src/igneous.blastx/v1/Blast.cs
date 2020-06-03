@@ -6,7 +6,7 @@ using System.Reflection;
 namespace igneous.blastx.v1
 {
     /// <summary>A blast performed using explosives to break rock for excavation</summary>
-    public sealed class Blast
+    public sealed class Blast : IHasExtensionData
     {
         [JsonProperty("metadata", Required = Required.Always)]
         public Metadata Metadata { get; set; } = new Metadata();
@@ -40,7 +40,7 @@ namespace igneous.blastx.v1
         public List<Mesh> Meshes { get; set; } = new List<Mesh>();
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         public static string ToJson(object obj) => JsonConvert.SerializeObject(
             obj,
@@ -94,7 +94,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<List<BlastHoleTie>>.Default.GetHashCode(HoleTies);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<ElectronicDetonator>>.Default.GetHashCode(ElectronicDetonators);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Mesh>>.Default.GetHashCode(Meshes);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             return hashCode;
         }
     }

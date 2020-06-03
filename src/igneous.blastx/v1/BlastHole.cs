@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public partial class BlastHole
+    public partial class BlastHole : IHasExtensionData
     {
         [JsonProperty("id", Required = Required.Always)]
         public string Id { get; set; } = string.Empty;
@@ -56,7 +56,7 @@ namespace igneous.blastx.v1
         public GeographicalLocation Location { get; set; }
 
         [JsonProperty("extensionData", Required = Required.Default)]
-        public List<object> ExtensionData { get; set; } = new List<object>();
+        public List<object> ExtensionData { get; set; }
 
         public override bool Equals(object obj) =>
             obj is BlastHole hole &&
@@ -92,7 +92,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + CenterTopOffset.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PatternId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(HoleLoadId);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             return hashCode;
         }
     }

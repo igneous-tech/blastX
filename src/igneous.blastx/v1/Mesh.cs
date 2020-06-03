@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace igneous.blastx.v1
 {
-    public sealed class Mesh
+    public sealed class Mesh : IHasExtensionData
     {
         [JsonProperty("id", Required = Required.Default)]
         public string Id { get; set; }
@@ -23,6 +23,9 @@ namespace igneous.blastx.v1
         [JsonProperty("texture", Required = Required.Default)]
         public string Texture { get; set; }
 
+        [JsonProperty("extensionData", Required = Required.Default)]
+        public List<object> ExtensionData { get; set; }
+
         public override bool Equals(object obj) =>
             obj is Mesh mesh &&
             Id == mesh.Id &&
@@ -41,6 +44,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<List<int>>.Default.GetHashCode(Indices);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<TextureCoordinate>>.Default.GetHashCode(TextureCoordinates);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Texture);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
             return hashCode;
         }
     }
