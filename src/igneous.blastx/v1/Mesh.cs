@@ -46,7 +46,7 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Texture);
             if (ExtensionData != null)
                 foreach (var item in ExtensionData)
-                    hashCode *= -1521134295 + EqualityComparer<object>.Default.GetHashCode(item);
+                    hashCode *= -1521134295 + Compare.GetHashCode(item);
             return hashCode;
         }
     }

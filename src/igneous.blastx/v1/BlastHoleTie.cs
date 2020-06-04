@@ -34,7 +34,9 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(StartHoleId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(EndHoleId);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(BlastProductId);
-            hashCode = hashCode * -1521134295 + EqualityComparer<List<object>>.Default.GetHashCode(ExtensionData);
+            if (ExtensionData != null)
+                foreach (var item in ExtensionData)
+                    hashCode *= -1521134295 + Compare.GetHashCode(item);
             hashCode = hashCode * -1521134295 + EqualityComparer<Cost>.Default.GetHashCode(Cost);
             return hashCode;
         }

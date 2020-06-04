@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using igneous.blastx.v1;
@@ -114,17 +115,70 @@ namespace igneous.blastx.tests
             var hole = new BlastHole();
             Assert.IsNull(hole.ExtensionData);
 
-            var data1 = new object();
+            dynamic data1 = new ExpandoObject();
             hole.GetExtensionData().Add(data1);
             Assert.IsNotNull(hole.ExtensionData);
             Assert.AreEqual(hole.ExtensionData.Count, 1);
             Assert.AreEqual(hole.ExtensionData[0], data1);
 
-            var data2 = new object();
+            dynamic data2 = new ExpandoObject();
             hole.GetExtensionData().Add(data2);
             Assert.AreEqual(hole.ExtensionData.Count, 2);
             Assert.AreEqual(hole.ExtensionData[0], data1);
             Assert.AreEqual(hole.ExtensionData[1], data2);
+        }
+
+        [TestMethod]
+        public void AddingExtensionData()
+        {
+            var blast = new Blast();
+            Assert.IsNull(blast.ExtensionData);
+
+            dynamic data = new ExpandoObject();
+            data.intProperty = 123;
+            data.doubleProperty = 12.34;
+            data.strProperty = "He is risen";
+            data.dateProperty = new DateTime(2020, 4, 19);
+            blast.GetExtensionData().Add(data);
+
+            var unserializedBlast = Blast.FromJson(blast.ToJson());
+            Assert.IsNotNull(unserializedBlast.ExtensionData);
+
+            dynamic unserializedData = unserializedBlast.GetExtensionData()[0];
+            Assert.AreEqual((int)unserializedData.intProperty, 123);
+            Assert.AreEqual((double)unserializedData.doubleProperty, 12.34);
+            Assert.AreEqual((string)unserializedData.strProperty, "He is risen");
+            Assert.AreEqual((DateTime)unserializedData.dateProperty, data.dateProperty);
+        }
+
+        [TestMethod]
+        public void ExtensionDataEquality()
+        {
+            dynamic data1 = new ExpandoObject();
+            data1.str1 = "foo";
+            data1.str2 = "bar";
+
+            dynamic data2 = new ExpandoObject();
+            data2.str1 = "foo";
+            data2.str2 = "bar";
+
+            var expando1 = (ExpandoObject)data1;
+            var expando2 = (ExpandoObject)data2;
+
+            Assert.IsTrue(Compare.IsEquivalentTo(expando1, expando2));
+            Assert.AreEqual(Compare.GetHashCode(data1), Compare.GetHashCode(data2));
+
+            data2.str3 = "";
+            Assert.IsFalse(Compare.IsEquivalentTo(expando1, expando2));
+            Assert.AreNotEqual(Compare.GetHashCode(data1), Compare.GetHashCode(data2));
+
+            ((IDictionary<string, object>)data2).Remove("str3");
+            Assert.IsTrue(Compare.IsEquivalentTo(expando1, expando2));
+            Assert.AreEqual(Compare.GetHashCode(data1), Compare.GetHashCode(data2));
+
+            data2.str1 = 123;
+            Assert.IsFalse(Compare.IsEquivalentTo(expando1, expando2));
+            Assert.AreNotEqual(Compare.GetHashCode(data1), Compare.GetHashCode(data2));
         }
     }
 }
