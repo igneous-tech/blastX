@@ -25,11 +25,15 @@
               "properties": {
                 "topDepth": {
                   "type": "number",
-                  "description": "Distance from the top of the hole to the top of the layer. Measured in m."
+                  "description": "Distance from the top of the hole to the top of the layer. Measured in m"
                 },
                 "height": {
                   "type": "number",
-                  "description": "Measured in m"
+                  "description": "Height or length of this layer. Measured in m"
+                },
+                "weight": {
+                  "type": "number",
+                  "description": "Weight of product loaded in this layer. Measured in kg"
                 },
                 "layerType": {
                   "type": "string",

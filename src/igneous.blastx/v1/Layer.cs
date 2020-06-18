@@ -6,13 +6,17 @@ namespace igneous.blastx.v1
 {
     public sealed class Layer
     {
-        /// <summary>Distance from the top of the hole to the top of the layer. Measured in m.</summary>
+        /// <summary>Distance from the top of the hole to the top of the layer. Measured in m</summary>
         [JsonProperty("topDepth", Required = Required.Always)]
         public double TopDepth { get; set; }
 
-        /// <summary>Measured in m</summary>
+        /// <summary>Height or length of this layer. Measured in m</summary>
         [JsonProperty("height", Required = Required.Default)]
         public double? Height { get; set; }
+
+        /// <summary>Weight of product loaded in this layer. Measured in kg"</summary>
+        [JsonProperty("weight", Required = Required.Default)]
+        public double? Weight { get; set; }
 
         [JsonProperty("layerType", Required = Required.Always)]
         [JsonConverter(typeof(StringEnumConverter))]
