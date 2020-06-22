@@ -28,6 +28,9 @@
           "type": "string",
           "format": "date-time"
         },
+        "notes": {
+          "type": "string"
+        },
         "extensionData": {
           "type": "array",
           "description": "An arbitrary array of data not formally defined by the spec"

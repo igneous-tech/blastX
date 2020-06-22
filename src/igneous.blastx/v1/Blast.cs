@@ -39,6 +39,9 @@ namespace igneous.blastx.v1
         [JsonProperty("meshes", Required = Required.Default)]
         public List<Mesh> Meshes { get; set; } = new List<Mesh>();
 
+        [JsonProperty("notes", Required = Required.Default)]
+        public string Notes { get; set; }
+
         [JsonProperty("extensionData", Required = Required.Default)]
         public List<object> ExtensionData { get; set; }
 
@@ -79,6 +82,7 @@ namespace igneous.blastx.v1
             HoleTies.IsEquivalentTo(blast.HoleTies) &&
             ElectronicDetonators.IsEquivalentTo(blast.ElectronicDetonators) &&
             Meshes.IsEquivalentTo(blast.Meshes) &&
+            Notes == blast.Notes &&
             ExtensionData.IsEquivalentTo(blast.ExtensionData);
 
         public override int GetHashCode()
@@ -94,6 +98,7 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + EqualityComparer<List<BlastHoleTie>>.Default.GetHashCode(HoleTies);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<ElectronicDetonator>>.Default.GetHashCode(ElectronicDetonators);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<Mesh>>.Default.GetHashCode(Meshes);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Notes);
             if (ExtensionData != null)
                 foreach (var item in ExtensionData)
                     hashCode *= -1521134295 + Compare.GetHashCode(item);

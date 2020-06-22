@@ -60,14 +60,26 @@
                 "dualDelayConnectionType": {
                   "type": "string",
                   "enum": [ "toDeckBelow", "toDeckAbove", "toOtherHole", "noConnection" ]
+                },
+                "state": {
+                  "type": "string",
+                  "description": "A description of the state of this layer"
+                },
+                "notes": {
+                  "type": "string",
+                  "description": "An optional property to store loading notes for this charge layer"
                 }
               },
-              "required": [ "topDepth", "layerType" ]
+              "required": [ "topDepth", "height", "layerType" ]
             }
           }
         },
         "required": [ "deckNumber", "layers" ]
       }
+    },
+    "notes": {
+      "type": "string",
+      "description": "An optional property to store notes about this particular load"
     },
     "extensionData": {
       "type": "array",

@@ -11,8 +11,8 @@ namespace igneous.blastx.v1
         public double TopDepth { get; set; }
 
         /// <summary>Height or length of this layer. Measured in m</summary>
-        [JsonProperty("height", Required = Required.Default)]
-        public double? Height { get; set; }
+        [JsonProperty("height", Required = Required.Always)]
+        public double Height { get; set; }
 
         /// <summary>Weight of product loaded in this layer. Measured in kg"</summary>
         [JsonProperty("weight", Required = Required.Default)]
@@ -43,6 +43,12 @@ namespace igneous.blastx.v1
         [JsonConverter(typeof(StringEnumConverter))]
         public DualDelayConnectionType? DualDelayConnectionType { get; set; }
 
+        [JsonProperty("state", Required = Required.Default)]
+        public string State { get; set; }
+
+        [JsonProperty("notes", Required = Required.Default)]
+        public string Notes { get; set; }
+
         public override bool Equals(object obj) =>
             obj is Layer layer &&
             TopDepth == layer.TopDepth &&
@@ -53,7 +59,9 @@ namespace igneous.blastx.v1
             IsSubstitutedAsBooster == layer.IsSubstitutedAsBooster &&
             DelayTime == layer.DelayTime &&
             DetonatingCordConnectionType == layer.DetonatingCordConnectionType &&
-            DualDelayConnectionType == layer.DualDelayConnectionType;
+            DualDelayConnectionType == layer.DualDelayConnectionType &&
+            State == layer.State &&
+            Notes == layer.Notes;
 
         public override int GetHashCode()
         {
@@ -67,6 +75,8 @@ namespace igneous.blastx.v1
             hashCode = hashCode * -1521134295 + DelayTime.GetHashCode();
             hashCode = hashCode * -1521134295 + DetonatingCordConnectionType.GetHashCode();
             hashCode = hashCode * -1521134295 + DualDelayConnectionType.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(State);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Notes);
             return hashCode;
         }
     }
