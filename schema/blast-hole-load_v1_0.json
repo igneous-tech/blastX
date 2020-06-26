@@ -35,6 +35,10 @@
                   "type": "number",
                   "description": "Weight of product loaded in this layer. Measured in kg"
                 },
+                "loadedDensity": {
+                  "type": "number",
+                  "description": "Specifies the optional loaded density of the product if it differs from the product 'at rest'. Measured in g/cc"
+                },
                 "layerType": {
                   "type": "string",
                   "enum": [ "product", "inert", "air", "other" ]

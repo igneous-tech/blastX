@@ -18,6 +18,10 @@ namespace igneous.blastx.v1
         [JsonProperty("weight", Required = Required.Default)]
         public double? Weight { get; set; }
 
+        /// <summary>Specifies the optional loaded density of the product if it differs from the product 'at rest'. Measured in g/cc"</summary>
+        [JsonProperty("loadedDensity", Required = Required.Default)]
+        public double? LoadedDensity { get; set; }
+
         [JsonProperty("layerType", Required = Required.Always)]
         [JsonConverter(typeof(StringEnumConverter))]
         public LayerType LayerType { get; set; }
