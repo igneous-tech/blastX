@@ -49,7 +49,7 @@
           },
           "depth": {
             "type": "number",
-            "description": "The depth of the above northing/easting offset values."
+            "description": "The vertical elevation down from the collar for this sample. Measured in m."
           }
         }
       },

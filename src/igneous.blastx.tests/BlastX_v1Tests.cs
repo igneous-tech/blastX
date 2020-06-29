@@ -100,6 +100,8 @@ namespace igneous.blastx.tests
                         var value = propInfo.PropertyType.IsValueType ?
                             Activator.CreateInstance(propInfo.PropertyType) :
                             null;
+                        if (propInfo.PropertyType == typeof(string))
+                            value = string.Empty;
                         propInfo.SetValue(objCopy, value);
                         Assert.AreNotEqual(obj, objCopy);
                         testsRun = true;
@@ -179,6 +181,92 @@ namespace igneous.blastx.tests
             data2.str1 = 123;
             Assert.IsFalse(Compare.IsEquivalentTo(expando1, expando2));
             Assert.AreNotEqual(Compare.GetHashCode(data1), Compare.GetHashCode(data2));
+        }
+
+        [TestMethod]
+        public void Blast_Get()
+        {
+            var blast = new Blast();
+
+            var hole1 = new BlastHole { Id = "one" };
+            var hole2 = new BlastHole { Id = "two" };
+            var hole3 = new BlastHole { Id = "three" };
+            blast.Holes.Add(hole1);
+            blast.Holes.Add(hole2);
+            blast.Holes.Add(hole3);
+            Assert.AreEqual(blast.Get<BlastHole>("one"), hole1);
+            Assert.AreEqual(blast.Get<BlastHole>("two"), hole2);
+            Assert.AreEqual(blast.Get<BlastHole>("three"), hole3);
+            Assert.AreEqual(blast.Get<BlastHole>("empty"), null);
+
+            var product1 = new Product { Id = "one" };
+            var product2 = new Product { Id = "2" };
+            var product3 = new Product { Id = "3" };
+            blast.Products.Add(product1);
+            blast.Products.Add(product2);
+            blast.Products.Add(product3);
+            Assert.AreEqual(blast.Get<Product>("one"), product1);
+            Assert.AreEqual(blast.Get<Product>("2"), product2);
+            Assert.AreEqual(blast.Get<Product>("3"), product3);
+        }
+
+        [TestMethod]
+        public void GetLength()
+        {
+            var hole = new BlastHole { Id = "one", Depth = 99 };
+            hole.DepthSamples.AddRange(new[]
+            {
+                new DepthSample { NorthingOffset = 0.1, Depth = 1 },
+                new DepthSample { NorthingOffset = -0.1, Depth = 2 },
+                new DepthSample { EastingOffset = 0.1, Depth = 3 },
+                new DepthSample { EastingOffset = -0.1, Depth = 4 },
+            });
+            Assert.AreEqual(hole.GetLength(), 4.055, 0.01);
+
+            hole.DepthSamples.Clear();
+            Assert.AreEqual(hole.GetLength(), 99);
+
+            hole.Depth = null;
+            Assert.AreEqual(hole.GetLength(), 0d);
+        }
+
+        [TestMethod]
+        public void Validation()
+        {
+            var blast = new Blast();
+            Assert.AreEqual(blast.Validate().Count(), 0);
+
+            var hole = new BlastHole { Id = "one" };
+            blast.Holes.Add(hole);
+            Assert.AreEqual(blast.Validate().Count(), 0);
+
+            // Should complain about a missing load
+            hole.HoleLoadId = "1";
+            Assert.AreEqual(blast.Validate().Count(), 1);
+            
+            hole.HoleLoadId = null;
+            Assert.AreEqual(blast.Validate().Count(), 0);
+
+            // Should complain about a duplicate id
+            var tmpHole = new BlastHole { Id = hole.Id };
+            blast.Holes.Add(tmpHole);
+            Assert.AreEqual(blast.Validate().Count(), 1);
+
+            blast.Holes.Remove(tmpHole);
+            Assert.AreEqual(blast.Validate().Count(), 0);
+
+            var product = new Product { Id = "one" };
+            blast.Products.Add(product);
+            Assert.AreEqual(blast.Validate().Count(), 0);
+
+            // Should complain about a duplicate id
+            var tmpProduct = new Product { Id = product.Id };
+            blast.Products.Add(tmpProduct);
+            Assert.AreEqual(blast.Validate().Count(), 1);
+            blast.Products.Remove(tmpProduct);
+
+            hole.HoleLoadId = product.Id;
+            Assert.AreEqual(blast.Validate().Count(), 0);
         }
     }
 }

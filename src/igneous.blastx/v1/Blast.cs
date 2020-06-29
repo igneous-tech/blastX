@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace igneous.blastx.v1
@@ -54,6 +57,101 @@ namespace igneous.blastx.v1
 
         public static Blast FromJson(string data) =>
             JsonConvert.DeserializeObject<Blast>(data);
+
+        readonly Dictionary<Type, object> _cacheOfIdCaches =
+            new Dictionary<Type, object>();
+
+        public T Get<T>(string id)
+            where T : class
+        {
+            Dictionary<string, T> idCacheAs;
+            if (_cacheOfIdCaches.TryGetValue(typeof(T), out var idCache) == false)
+            {
+                _cacheOfIdCaches[typeof(T)] = idCacheAs = new Dictionary<string, T>();
+
+                // Find the appropriate list of objects
+                var itemProp = typeof(Blast).GetProperties()
+                    .Where(p => p.PropertyType == typeof(List<T>))
+                    .FirstOrDefault();
+                var items = (List<T>)itemProp.GetValue(this);
+
+                // Get the id property
+                var idProp = typeof(T).GetProperty("Id");
+
+                // Populate the cache with the appropriate data
+                foreach (var item in items)
+                    idCacheAs[(string)idProp.GetValue(item)] = item;
+            }
+            else
+                idCacheAs = (Dictionary<string, T>)idCache;
+
+            return idCacheAs.TryGetValue(id, out var value) ? value : null;
+        }
+
+        public IEnumerable<string> Validate()
+        {
+            // Make sure all items have unique id values
+            var listProps = typeof(Blast).GetProperties()
+                .Where(p => p.PropertyType.IsGenericType)
+                .Where(p => p.PropertyType.GetGenericTypeDefinition() == typeof(List<>));
+            foreach (var prop in listProps)
+            {
+                var idProp = prop.PropertyType.GenericTypeArguments[0].GetProperty("Id");
+                var items = (IList)prop.GetValue(this);
+                var idValues = new HashSet<string>();
+                if (items != null)
+                    foreach (var item in items)
+                    {
+                        var idValue = (string)idProp.GetValue(item);
+                        if (string.IsNullOrWhiteSpace(idValue))
+                            yield return $"Found empty id value on an object of type {item.GetType()}";
+                        if (idValues.Add(idValue) == false)
+                            yield return $"Duplicate id value found: {idValue}";
+                    }
+            }
+
+            // Make sure all holes refer to a hole load that exists
+            foreach (var hole in Holes)
+                if (string.IsNullOrWhiteSpace(hole.HoleLoadId) == false)
+                {
+                    var load = Get<BlastHoleLoad>(hole.HoleLoadId);
+                    if (load == null)
+                        yield return $"{nameof(BlastHole)} with id {hole.Id} refers to load {hole.HoleLoadId} which doesn't exist";
+                }
+
+            // Make sure all layers refer to products that exist
+            foreach (var load in HoleLoads)
+                foreach (var deck in load.Decks)
+                    foreach (var layer in deck.Layers)
+                        if (string.IsNullOrWhiteSpace(layer.BlastProductId) == false)
+                        {
+                            if (Get<Product>(layer.BlastProductId) == null)
+                                yield return $"{nameof(BlastHoleLoad)} with id {load.Id} refers to a product with id {layer.BlastProductId} which doesn't exist";
+                        }
+
+            // Make sure all layers refer to products that exist
+            foreach (var tie in HoleTies)
+                if (string.IsNullOrWhiteSpace(tie.BlastProductId) == false)
+                {
+                    if (Get<BlastHole>(tie.StartHoleId) == null)
+                        yield return $"A {nameof(BlastHoleTie)} refers to a product with id {tie.StartHoleId} which doesn't exist";
+                    if (Get<BlastHole>(tie.EndHoleId) == null)
+                        yield return $"A {nameof(BlastHoleTie)} refers to a hole with id {tie.EndHoleId} which doesn't exist";
+                    if (Get<Product>(tie.BlastProductId) == null)
+                        yield return $"A {nameof(BlastHoleTie)} refers to a product with id {tie.BlastProductId} which doesn't exist";
+                }
+
+            // Validate the load data for each hole
+            foreach (var hole in Holes)
+                if (hole.GetLength() > 0)
+                {
+                    var load = Get<BlastHoleLoad>(hole.HoleLoadId);
+                    if (load != null)
+                    {
+                        // TODO: ensure the load fits in the hole and that numbers are internally consistent
+                    }
+                }
+        }
 
         sealed class SkipOptionalUndefinedResolver : DefaultContractResolver
         {

@@ -12,7 +12,7 @@ namespace igneous.blastx.v1
         [JsonProperty("northingOffset", Required = Required.Always)]
         public double NorthingOffset { get; set; }
 
-        /// <summary>The depth of the above northing/easting offset values.</summary>
+        /// <summary>The vertical elevation down from the collar for this sample. Measured in m.</summary>
         [JsonProperty("depth", Required = Required.Always)]
         public double Depth { get; set; }
 

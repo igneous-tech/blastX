@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace igneous.blastx.v1
 {
@@ -60,6 +62,36 @@ namespace igneous.blastx.v1
 
         [JsonProperty("extensionData", Required = Required.Default)]
         public List<object> ExtensionData { get; set; }
+
+        public double GetLength()
+        {
+            // If a hole has depth values, assume they're authoritive
+            if (DepthSamples.Any())
+            {
+                var length = 0d;
+                var prevE = 0d;
+                var prevN = 0d;
+                var prevDepth = 0d;
+                foreach (var sample in DepthSamples)
+                {
+                    var eDelta = sample.EastingOffset - prevE;
+                    var nDelta = sample.NorthingOffset - prevN;
+                    var depthDelta = sample.Depth - prevDepth;
+                    length += Math.Sqrt(
+                        eDelta * eDelta +
+                        nDelta * nDelta +
+                        depthDelta * depthDelta);
+                    prevE = sample.EastingOffset;
+                    prevN = sample.NorthingOffset;
+                    prevDepth = sample.Depth;
+                }
+
+                return length;
+            }
+
+            // Otherwise just return the depth value if one exists
+            return Depth ?? 0d;
+        }
 
         public override bool Equals(object obj) =>
             obj is BlastHole hole &&
