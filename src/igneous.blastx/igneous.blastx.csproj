@@ -1,80 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5EDBE7B8-2E9D-425F-865B-F14D9F78B83D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>igneous.blastx</RootNamespace>
-    <AssemblyName>igneous.blastx</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>$(IGT_External)\igneous-tech-strongname.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+	
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="v1\Blast.cs" />
-    <Compile Include="v1\BlastHole.cs" />
-    <Compile Include="v1\BlastHoleLoad.cs" />
-    <Compile Include="v1\BlastHoleTie.cs" />
-    <Compile Include="v1\BlastInfo.cs" />
-    <Compile Include="v1\BlastPattern.cs" />
-    <Compile Include="v1\Compare.cs" />
-    <Compile Include="v1\Cost.cs" />
-    <Compile Include="v1\Deck.cs" />
-    <Compile Include="v1\DelayType.cs" />
-    <Compile Include="v1\DepthSample.cs" />
-    <Compile Include="v1\DetonatingCordConnectionType.cs" />
-    <Compile Include="v1\DetonatorType.cs" />
-    <Compile Include="v1\DualDelayConnectionType.cs" />
-    <Compile Include="v1\ElectronicDetonator.cs" />
-    <Compile Include="v1\GeodeticStandard.cs" />
-    <Compile Include="v1\GeographicalLocation.cs" />
-    <Compile Include="v1\IHasExtensionData.cs" />
-    <Compile Include="v1\InitiationType.cs" />
-    <Compile Include="v1\Layer.cs" />
-    <Compile Include="v1\LayerType.cs" />
-    <Compile Include="v1\LinearCoordinate.cs" />
-    <Compile Include="v1\Mesh.cs" />
-    <Compile Include="v1\Metadata.cs" />
-    <Compile Include="v1\Product.cs" />
-    <Compile Include="v1\ProductType.cs" />
-    <Compile Include="v1\TextureCoordinate.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>
